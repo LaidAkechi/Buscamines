@@ -159,6 +159,7 @@ public class BoardTest  {
 		assertThat(board.userMatrix,is(notNullValue()));
 	}
 	
+	// Test a partir d'un bucle que obre les caselles indicades per el Mock
 	@Test
 	public void openPositionBoxTest_true() {
 		Board board = new MockBoardOpenPositionBox();
@@ -172,8 +173,9 @@ public class BoardTest  {
 		
 		
 	}
+	// Test que mira les bombes que té la casella al voltant
 	@Test 
-	public void minesArroundTest_left() {
+	public void minesArroundTest() {
 		Board board = new MockBoard();
 		User user = new MockUser();
 		board.fillMines();
