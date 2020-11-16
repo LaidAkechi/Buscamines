@@ -1,7 +1,7 @@
 package TQSPractica;
 
 import static org.junit.Assert.*;
-
+import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 
@@ -19,6 +19,7 @@ public class BoardTest  {
 		assertTrue(board.isMine());
 
 	}
+	//test forzant que el la posició introduïda no hi hagi una mina
 	@Test
 	public void isMineTest_false() {
 		Board board = new MockBoard();
@@ -44,7 +45,7 @@ public class BoardTest  {
 		assertEquals(board.isMine(),true);
 	}
 		
-	
+	// 
 	@Test
 	public void userPositionTest() {
 		Board board = new MockBoard();
@@ -54,7 +55,7 @@ public class BoardTest  {
 		
 	}
 	
-
+	// Test per comprobar path dels getters 
 	@Test
 	public void gettersTest() {
 		Board board = new MockBoard();
@@ -62,6 +63,7 @@ public class BoardTest  {
 		board.isWinGame();
 	}
 	
+	//Test per comprovar la funcio print
 	@Test
 	public void printTest() {
 		Board board = new MockBoard();
@@ -69,6 +71,7 @@ public class BoardTest  {
 	}
 
 		
+	// Test per obtenir de forma aleatoria el valor dins de la casella(Box)
 	@Test
 	public void getBoxPositionTest_true() {
 		int n_row = (int)Math.random()*9;
@@ -78,7 +81,9 @@ public class BoardTest  {
 		assertNotEquals(board.getBoxPosition(n_row, n_column), 0);
 		
 	}
-	
+	// Test per validar si l'usuari no pot introduir un valor fora del permés
+	// rang ( 1-10)
+	//En aquest test es simula que l'usuari introdueix valor fora d'aquest rang.
 	@Test
 	public void getBoxPositionTest_false() {
 		int n_row = 11;
@@ -114,6 +119,7 @@ public class BoardTest  {
 		
 	}
 	
+	// Test per mirar si es realitza la modificació del valor endGame.
 	@Test
 	public void setEndGame() {
 		Board board = new MockBoard();
@@ -121,7 +127,7 @@ public class BoardTest  {
 		assertEquals(board.isEndGame(),false);
 	}
 	
-
+	// Test que valida que l'usuari no pot guanyar fins que estiguin totes les caselles buides
 	@Test
 	public void winGameTest_true_true() {
 		Board board = new MockBoard();
@@ -129,6 +135,7 @@ public class BoardTest  {
 		board.winGame();
 	}
 	
+	// Test que valida que l'usuari ha guanyat.
 	@Test
 	public void winGame_true() {
 		
@@ -143,5 +150,13 @@ public class BoardTest  {
 
 	}
 	
+	//Test per comprovar que les dos matrius es generen
+	@Test
+	public void fillMinesTest() {
+		Board board = new Board();
+		board.fillMines();
+		assertThat(board.boxMatrix,is(notNullValue()));
+		assertThat(board.userMatrix,is(notNullValue()));
+	}
 	
 }
