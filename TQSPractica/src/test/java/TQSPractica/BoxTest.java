@@ -3,7 +3,7 @@ package TQSPractica;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
+import static org.hamcrest.CoreMatchers.*;
 
 public class BoxTest extends Box {
 
@@ -20,13 +20,13 @@ public class BoxTest extends Box {
     @Test
     public void getValueTest() {
         Box box = new MockBox();
-        assertEquals(box.getValue(),0);
+        assertThat(box.getValue(),notNullValue());
     }
 
     @Test
     public void getNumberBombsTest() {
         Box box = new MockBox();
-        assertEquals(box.getNumberBombs(),0);
+        assertThat(box.getNumberBombs(),notNullValue());
     }
 
     @Test

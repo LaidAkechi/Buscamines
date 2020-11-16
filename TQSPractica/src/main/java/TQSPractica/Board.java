@@ -115,4 +115,109 @@ public class Board {
 			i++;
 		}
 	}
+	
+	
+	public void openPositionBox() {
+		if (!isMine()) {
+			n_mines = minesArround();
+			boxMatrix[user.getRow()][user.getColumn()].setValue(n_mines);
+			userMatrix[user.getRow()][user.getColumn()] = Integer.toString(n_mines);
+			boxMatrix[user.getRow()][user.getColumn()].setFilled(true);
+
+			if (n_mines > 0) {}
+			else {
+
+				if (user.getColumn() >= 1) {
+					if (boxMatrix[user.getRow()][user.getColumn() - 1].isFilled() == false) {
+						user.setColumn(user.getColumn() - 1);
+						this.openPositionBox();
+						user.setColumn(user.getColumn() + 1);
+					}
+				}
+				if (user.getColumn() >= 1 && user.getRow() >= 1) {
+					if (boxMatrix[user.getRow() - 1][user.getColumn() - 1].isFilled() == false) {
+
+						user.setColumn(user.getColumn() - 1);
+						user.setRow(user.getRow() - 1);
+						this.openPositionBox();
+						user.setRow(user.getRow() + 1);
+						user.setColumn(user.getColumn() + 1);
+					}
+				}
+				if (user.getRow() >= 1) {
+					if (boxMatrix[user.getRow() - 1][user.getColumn()].isFilled() == false) {
+						user.setRow(user.getRow() - 1);
+						this.openPositionBox();
+						user.setRow(user.getRow() + 1);
+					}
+				}
+				if (user.getColumn() < 9 && user.getRow() >= 1) {
+					if (boxMatrix[user.getRow() - 1][user.getColumn() + 1].isFilled() == false) {
+						user.setRow(user.getRow() - 1);
+						user.setColumn(user.getColumn() + 1);
+						this.openPositionBox();
+						user.setRow(user.getRow() + 1);
+						user.setColumn(user.getColumn() - 1);
+					}
+				}
+				if (user.getColumn() < 9) {
+					if (boxMatrix[user.getRow()][user.getColumn() + 1].isFilled() == false) {
+						user.setColumn(user.getColumn() + 1);
+						this.openPositionBox();
+						user.setColumn(user.getColumn() - 1);
+					}
+				}
+				if (user.getColumn() < 9 && user.getRow() < 9) {
+					if (boxMatrix[user.getRow() + 1][user.getColumn() + 1].isFilled() == false) {
+						user.setRow(user.getRow() + 1);
+						user.setColumn(user.getColumn() + 1);
+						this.openPositionBox();
+						user.setRow(user.getRow() - 1);
+						user.setColumn(user.getColumn() - 1);
+					}
+				}
+				if (user.getRow() < 9) {
+					if (boxMatrix[user.getRow() + 1][user.getColumn()].isFilled() == false) {
+						user.setRow(user.getRow() + 1);
+						this.openPositionBox();
+						user.setRow(user.getRow() - 1);
+					}
+				}
+				if (user.getColumn() >= 1 && user.getRow() < 9) {
+					if (boxMatrix[user.getRow() + 1][user.getColumn() - 1].isFilled() == false) {
+						user.setRow(user.getRow() + 1);
+						user.setColumn(user.getColumn() - 1);
+						this.openPositionBox();
+						user.setRow(user.getRow() - 1);
+						user.setColumn(user.getColumn() + 1);
+
+					}
+				}
+			}
+		} else {
+			System.out.println("You find a mine");
+			endGame = true;
+		}
+
+	}
+
+	public int minesArround() {
+		int i = -1, j = -1;
+		int bombCount = 0;
+
+		while (i != 2) {
+			j = -1;
+			while (j != 2) {
+				if (this.getBoxPosition(user.getRow() + i, user.getColumn() + j) == 1) {
+					bombCount++;
+				}
+				j++;
+			}
+			i++;
+		}
+
+		return bombCount;
+	}
+	
+	
 }

@@ -159,4 +159,48 @@ public class BoardTest  {
 		assertThat(board.userMatrix,is(notNullValue()));
 	}
 	
+	@Test
+	public void openPositionBoxTest_true() {
+		Board board = new MockBoardOpenPositionBox();
+		User user = new MockUserOpenPositionBox();
+		board.setUser(user);
+		board.fillMines();
+		for (int i = 0; i < 9; i++){
+			board.userPosition();
+			board.openPositionBox();
+		}
+		
+		
+	}
+	@Test 
+	public void minesArroundTest_left() {
+		Board board = new MockBoard();
+		User user = new MockUser();
+		board.fillMines();
+		int n_numberBombs;
+		board.setUser(user);
+		
+		board.userPosition();
+		n_numberBombs = board.minesArround();
+		assertEquals(3,n_numberBombs);
+		
+		board.userPosition();
+		n_numberBombs = board.minesArround();
+		assertEquals(4,n_numberBombs);
+		
+		board.userPosition();
+		n_numberBombs = board.minesArround();
+		assertEquals(5,n_numberBombs);
+		
+		board.userPosition();
+		n_numberBombs = board.minesArround();
+		assertEquals(4,n_numberBombs);
+		
+		board.userPosition();
+		n_numberBombs = board.minesArround();
+		assertEquals(5,n_numberBombs);
+		
+		
+	}
+	
 }
