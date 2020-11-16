@@ -8,27 +8,33 @@ public class MockUser extends User{
 	private int countColumn;
 	
 	public MockUser() {
-		int n_row[] = {3,1,3,1,2,3,1,2,0};
-		int n_column[]= {3,2,3,2,1,3,2,1,0};
+		int n_row[] = {1,1,3,1,2,3,1,2,0,2};
+		int n_column[]= {1,2,3,2,1,3,2,1,0,9};
+		
+	//	int n_row[] = {1,1,3,1,2,3,1,2,0,2};
+	//	int n_column[]= {1,2,3,2,1,3,2,1,0,9};
+
 		row = n_row;
 		column = n_column;
 		
 	}
 	
-	//@Override
+	@Override
 	public void userSetPosition() {
 		countRow++;
 		countColumn++;
+		
+		
 	}
 	
-//	@Override
+	@Override
 	public int getRow() {
-		return row[countRow];
+		return (row[countRow-1]-1);
 	}
 	
-	//@Override
+	@Override
 	public int getColumn() {
-		return (column[countColumn]);
+		return (column[countColumn-1]-1);
 	}
 	
 	
