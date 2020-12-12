@@ -38,6 +38,5 @@ public class MockBoard extends Board {
 		boxMatrix[8][7].setValue(1);
 	
 	}
-	
 
 }
