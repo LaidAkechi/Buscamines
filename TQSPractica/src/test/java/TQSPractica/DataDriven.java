@@ -13,26 +13,13 @@ import java.util.List;
 import org.junit.Test;
 public class DataDriven {
 
-<<<<<<< HEAD
-	private String[] getInputs(String file, int pos) throws IOException {
-=======
 	@SuppressWarnings("null")
-	private Integer[] getInputs(String file) throws IOException {
->>>>>>> 5d7b9f1f025612b873979790d1fd1551babe6145
+	private Integer[] getTablero(String file) throws IOException {
 		List<String> inputs = new ArrayList<String>();
 		File fichero = new File(file);
 		FileInputStream flujo = new FileInputStream(fichero);
 		BufferedReader lector = new BufferedReader(new InputStreamReader(flujo));
 		String line;
-<<<<<<< HEAD
-		while((line = lector.readLine()) != null) {
-		    inputs.add(line.split(" ")[pos]);
-		}
-		lector.close();
-		flujo.close();
-		String[] entradas = new String[inputs.size()];
-		return inputs.toArray(entradas);
-=======
 		String[] text = null;
 		Integer[] cadena;
 		Integer contador=0;
@@ -56,54 +43,61 @@ public class DataDriven {
 		lector.close();
 		flujo.close();
 		return cadena;
->>>>>>> 5d7b9f1f025612b873979790d1fd1551babe6145
+	}
+	private String[] getInputs(String file, int pos) throws IOException {
+		List<String> inputs = new ArrayList<String>();
+		File fichero = new File(file);
+		FileInputStream flujo = new FileInputStream(fichero);
+		BufferedReader lector = new BufferedReader(new InputStreamReader(flujo));
+		String line;
+		while((line = lector.readLine()) != null) {
+		    inputs.add(line.split(";")[pos]);
+		}
+		lector.close();
+		flujo.close();
+		String[] entradas = new String[inputs.size()];
+		return inputs.toArray(entradas);
 	}
 	
 	@Test
 	public void testtestTablero() throws IOException {
-<<<<<<< HEAD
-		String[] tablero = getInputs("casillas.txt", 0);
-		MockTablero Board= new MockTablero();
-		Board.llenarMinas(tablero);
-		Board.mostrarTablero();
-=======
-		Integer[] tablero = getInputs("casillas.txt");
+		Integer[] tablero = getTablero("casillas.txt");
 		MockTablero Board= new MockTablero();
 		
 		Board.llenarMinas(tablero);
 		System.out.print("\n");
-		System.out.print(tablero[99]);
+		System.out.print(tablero[0]);
 		System.out.print("\n");
-		Board.mostrarTablero();
+		//Board.mostrarTablero();
 		System.out.print("\n");
-		System.out.print(tablero[100]);
->>>>>>> 5d7b9f1f025612b873979790d1fd1551babe6145
+		System.out.print(tablero[2]);
 	}
 	
-/* 	@Test
+ 	@Test
 	public void testboardDescubreCasillas() throws IOException {
-		String[] casillasX = getInputs("Casillas.txt", 0);
-		String[] casillasY = getInputs("Casillas.txt", 1);
-		String[] mina = getInputs("Casillas.txt", 2);
-		Board board = board.getMockboard();
+ 		Integer[] tablero = getTablero("casillas.txt");
+		MockTablero Board= new MockTablero();
+		User user = new User();
+		Board.llenarMinas(tablero);
+		Board.setUser(user);
+		String[] casillasX = getInputs("abrircasillas.txt", 0);
+		String[] casillasY = getInputs("abrircasillas.txt", 1);
+		String[] mina = getInputs("abrircasillas.txt", 3);
+
 		for(int i = 0; i < casillasX.length; i++) {
 			int x = Integer.parseInt(casillasX[i]);
 			int y = Integer.parseInt(casillasY[i]);
-			assertEquals(mina[i], String.valueOf(board.descubreCasilla(x, y)));
+			System.out.print(x);
+			System.out.print("\n");
+			System.out.print(y);
+			System.out.print("\n");
+			System.out.print(mina[i]);
+			Board.user.setColumn(x);
+			Board.user.setRow(y);
+			System.out.print(Board.isMine());
+			System.out.print("\n");
+			assertEquals(mina[i], String.valueOf(Board.isMine()));
 		}
 	}
-	
-	@Test
-	public void testboardCuentaMinas() throws IOException {
-		String[] casillasX = getInputs("CasillasContar.txt", 0);
-		String[] casillasY = getInputs("CasillasContar.txt", 1);
-		String[] minasAlrededor = getInputs("CasillasContar.txt", 2);
-		Board board = board.getMockboardConZeros();
-		for(int i = 0; i < casillasX.length; i++) {
-			int x = Integer.parseInt(casillasX[i]);
-			int y = Integer.parseInt(casillasY[i]);
-			assertEquals(minasAlrededor[i], String.valueOf(board.cuentaMinasAlrededor(x, y)));
-		}
-	} */
 
 }
