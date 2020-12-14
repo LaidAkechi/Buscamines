@@ -58,23 +58,45 @@ public class DataDriven {
 		String[] entradas = new String[inputs.size()];
 		return inputs.toArray(entradas);
 	}
-	
+	//Test para 
 	@Test
-	public void testtestTablero() throws IOException {
+	public void testtestTableroAbrirCasilla() throws IOException {
 		Integer[] tablero = getTablero("casillas.txt");
+		String[] casillasX = getInputs("abrircasillas.txt", 0);
+		String[] casillasY = getInputs("abrircasillas.txt", 1);
+		String[] mina = getInputs("abrircasillas.txt", 3);
 		MockTablero Board= new MockTablero();
-		
+		User user = new User();
+		Board.setEndGame(false);
 		Board.llenarMinas(tablero);
+		Board.setUser(user);
 		System.out.print("\n");
 		System.out.print(tablero[0]);
 		System.out.print("\n");
-		//Board.mostrarTablero();
+		Board.mostrarTablero();
 		System.out.print("\n");
 		System.out.print(tablero[2]);
+		for(int i = 0; i < casillasX.length; i++) {
+			int x = Integer.parseInt(casillasX[i]);
+			int y = Integer.parseInt(casillasY[i]);
+			Board.user.setColumn(x);
+			Board.user.setRow(y);
+			Board.setEndGame(false);
+			Board.openPositionBox();
+			System.out.print("Abrir casillas \n");
+			System.out.print("Columna: "+x+" Fila: "+y+"\n");
+			if (Boolean.parseBoolean(mina[i])) {
+				System.out.print("Se pierde la partida = "+mina[i]+Board.isEndGame()+"\n");
+				assertEquals(Boolean.parseBoolean(mina[i]), Board.isEndGame()); 
+			}else {
+				System.out.print("Se puede seguir jugando = "+mina[i]+Board.isEndGame()+"\n");
+				assertEquals(Boolean.parseBoolean(mina[i]), Board.isEndGame());
+			}
+		}
 	}
 	
  	@Test
-	public void testboardDescubreCasillas() throws IOException {
+	public void testboardComprovarmina() throws IOException {
  		Integer[] tablero = getTablero("casillas.txt");
 		MockTablero Board= new MockTablero();
 		User user = new User();
@@ -87,16 +109,39 @@ public class DataDriven {
 		for(int i = 0; i < casillasX.length; i++) {
 			int x = Integer.parseInt(casillasX[i]);
 			int y = Integer.parseInt(casillasY[i]);
-			System.out.print(x);
-			System.out.print("\n");
-			System.out.print(y);
-			System.out.print("\n");
-			System.out.print(mina[i]);
 			Board.user.setColumn(x);
 			Board.user.setRow(y);
-			System.out.print(Board.isMine());
-			System.out.print("\n");
-			assertEquals(mina[i], String.valueOf(Board.isMine()));
+			System.out.print("Abrir casillas \n");
+			System.out.print("Columna: "+x+" Fila: "+y+"\n");
+			System.out.print("Esmina esperado: "+mina[i]+" Esmina de funcion: "+Board.isMine()+"\n");
+			assertEquals(Boolean.parseBoolean(mina[i]), String.valueOf(Board.isMine()));
+		}
+	}
+ 	@Test
+	public void testboardMinasalrededor() throws IOException {
+ 		Integer[] tablero = getTablero("casillas.txt");
+		MockTablero Board= new MockTablero();
+		User user = new User();
+		Board.llenarMinas(tablero);
+		Board.setUser(user);
+		String[] casillasX = getInputs("abrircasillas.txt", 0);
+		String[] casillasY = getInputs("abrircasillas.txt", 1);
+		String[] valor = getInputs("abrircasillas.txt", 2);
+
+		for(int i = 0; i < casillasX.length; i++) {
+			int x = Integer.parseInt(casillasX[i]);
+			int y = Integer.parseInt(casillasY[i]);
+			Board.user.setColumn(x);
+			Board.user.setRow(y);
+			System.out.print("minas alredeor \n");
+			System.out.print("Columna: "+x+" Fila: "+y+"\n");
+			System.out.print("Valor casilla esperado: "+valor[i]+" Valor casilla funcion: "+Board.minesArround()+"\n");
+			if(Integer.parseInt(valor[i]) == -1) {
+				assertEquals(0, String.valueOf(Board.minesArround()));
+			}
+			else {
+				assertEquals(valor[i], String.valueOf(Board.minesArround()));
+			}
 		}
 	}
 

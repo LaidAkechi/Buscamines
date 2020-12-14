@@ -40,9 +40,6 @@ public class MockTablero extends Board{
 			for (int j = 0; j < 5; j++) {
 				if(boxMatrix[i][j].getValue()!=-1){
 					System.out.print(boxMatrix[i][j].getValue());
-					this.user.setColumn(i);
-					this.user.setRow(j);
-					openPositionBox();
 				}
 				System.out.print(userMatrix[i][j]);
 				System.out.print("  ");
